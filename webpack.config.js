@@ -50,8 +50,9 @@ module.exports = function(_env, argv) {
           }
         },
         {
-          test: /\.svg$/,
-          use: ["@svgr/webpack"]
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
+          use: ['@svgr/webpack'],
         },
         {
           test: /\.(eot|otf|ttf|woff|woff2)$/,

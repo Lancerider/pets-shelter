@@ -1,6 +1,6 @@
 import React from 'react';
-import './Navigation.scss';
 import NavigationLink from "./NavigationLink";
+import './style/Navigation.scss';
 
 const Navigation = ({  }) => <nav className='comp-navigation'>
   <ul>
