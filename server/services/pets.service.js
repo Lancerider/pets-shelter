@@ -1,3 +1,6 @@
+const boom = require('@hapi/boom')
+const { faker } = require('@faker-js/faker')
+
 class PetsService {
   constructor() {
     this.petTypes = []
@@ -8,66 +11,66 @@ class PetsService {
   }
 
   generate() {
-    this.petTypes = {
-      1: {
+    this.petTypes = [
+      {
         id: 1,
         key: 'cat',
         title: 'Cat'
       },
-      2: {
+      {
         id: 2,
         key: 'dog',
         title: 'Dog'
       }
-    }
+    ]
 
-    this.shelters = {
-      1: {
+    this.shelters =  [
+      {
         id: 1,
-        name: 'CatDog',
-        address: 'My House'
+        name: faker.company.companyName(),
+        address: faker.address.streetAddress()
       }
-    }
+    ]
 
-    this.petStatus = {
-      1: {
+    this.petStatus = [
+      {
         id: 1,
         key: 'adopted',
         title: 'Adopted'
       },
-      2: {
+      {
         id: 2,
         key: 'in-shelter',
         title: 'In shelter'
       },
-    }
+    ]
 
-    this.pets = {
-      1: {
-        id: 1,
-        type: 1,
-        name: 'Vasia',
-        status: 1,
-        shelter: 1,
-        owner: 1,
-        someOther: 'Some Other',
-      },
-      2: {
-        id: 2,
-        type: 1,
-        name: 'Musci',
-        status: 2,
-        shelter: 1,
-        owner: 2,
-        someOther: 'New Value',
+    this.owners = [...Array(20)].map(() => {
+      return {
+          id: faker.datatype.uuid(),
+          name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+          address: faker.address.streetAddress(true)
+        }
+    })
+
+    this.pets = [...Array(10)].map(() => {
+      const status = faker.helpers.arrayElement(this.petStatus)
+
+      return {
+        id: faker.datatype.uuid(),
+        name: faker.name.firstName(),
+        status,
+        type: faker.helpers.arrayElement(this.petTypes),
+        shelter: faker.helpers.arrayElement(this.shelters),
+        owner: status.type === 'adopted' ? faker.helpers.arrayElement(this.owners) : null,
       }
-    }
+    })
   }
 
   find(query) {
     const { types } = query
 
-    let filteredPets = Object.values(this.pets)
+    let filteredPets = this.pets
 
     if (types && types.length > 0) {
       filteredPets = [...filteredPets.filter(pet => types.includes(pet.type))]
@@ -78,6 +81,10 @@ class PetsService {
 
   findOne(id) {
     const pet = this.pets[id]
+
+    if (!pet) {
+      throw boom.notFound('Pet not found')
+    }
 
     return pet
   }
