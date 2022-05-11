@@ -1,40 +1,19 @@
-const http = require('http');
-/**
- * Very simple endpoint, feel free to use a library to make your life easier, Rest or Graph, both work
- */
-const server = http.createServer((req, res) => {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Request-Method', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const port = 3000;
 
-  if (req.url === '/') {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({
-      cats: 'http://localhost:3000/cats'
-    }))
-  }
-  if (req.url === '/cats') {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify([{
-      id: 1,
-      type: 'cat',
-      name: 'Vasia',
-      status: 'Adopted',
-      someOther: 'Some Other',
-    },{
-      id: 2,
-      type: 'cat',
-      name: 'Musci',
-      status: 'Adopted',
-      someOther: 'New Value',
-    }
-    ]))
-  }
-})
+const routerApi = require('./routes');
 
-server.listen(3000, (err) => {
-  if (err) throw err;
+routerApi(app);
+
+app.use(cors());
+app.use(express.json());
+
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log('server is listening on port 3000');
-})
+}).on('error', (error) => {
+  // eslint-disable-next-line no-console
+  console.error(error);
+});
