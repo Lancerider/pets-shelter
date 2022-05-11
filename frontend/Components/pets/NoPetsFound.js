@@ -1,5 +1,5 @@
 import React from 'react';
-import './style/PetsListItem.scss'
+import './style/NoPetsFound.scss'
 
 const NoPetsFound = () => (
   <p className="pets__no-pets">

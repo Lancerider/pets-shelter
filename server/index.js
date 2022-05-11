@@ -18,11 +18,13 @@ const server = http.createServer((req, res) => {
   if (req.url === '/cats') {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify([{
+      id: 1,
       type: 'cat',
       name: 'Vasia',
       status: 'Adopted',
       someOther: 'Some Other',
     },{
+      id: 2,
       type: 'cat',
       name: 'Musci',
       status: 'Adopted',

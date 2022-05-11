@@ -20,7 +20,7 @@ const PetsList = () => {
 
     try {
       const response = await fetch(
-        "http://localhos:3000/cats",
+        "http://localhost:3000/cats",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }

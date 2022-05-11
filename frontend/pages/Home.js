@@ -5,7 +5,7 @@ import'./style/Home.scss'
 function Home() {
 	return (
 		<div className="home">
-      <h2 className='title'>My pets</h2>
+      <h2 className='title'>Pets</h2>
 			<PetsList />
 		</div>
 	)

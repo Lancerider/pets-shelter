@@ -1,15 +1,22 @@
 .comp-navigation {
-  width: 100vw;
-  height: 100px;
+  min-height: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: aqua;
+  padding: 10px 30px;
+
   > ul {
     display: flex;
     margin: 0;
     padding: 0;
     flex-direction: row;
     list-style: none;
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+    }
   }
+
 }

@@ -1,0 +1,44 @@
+.pets__container {
+  min-height: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  grid-gap: 10px;
+
+  .pet {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-gap: 16px;
+    min-width: 400px;
+    max-height: 100px;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    align-items: center;
+
+    &:hover {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    .pet__icon {
+      display: flex;
+      max-width: 40px;
+      justify-content: center;
+    }
+
+    .pet__name {
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+
+  .pet__details {
+    display: flex;
+    grid-gap: 2px;
+    max-height: 100px;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
