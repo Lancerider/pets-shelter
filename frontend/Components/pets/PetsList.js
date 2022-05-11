@@ -20,14 +20,17 @@ const PetsList = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/cats",
+        "http://localhost:3000/pets",
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" }
+          headers: {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*'
+          }
         }
       );
-      
-      const petsData = await response.json();
+
+      const petsData = (await response.json()).data;
 
       setPets(petsData);
     } catch (error) {

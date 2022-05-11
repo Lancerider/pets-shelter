@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 
   const filteredPets = petService.find(req.query)
 
-  res.status(201).send({
+  res.status(200).send({
     data: filteredPets
   });
 });
@@ -18,11 +18,7 @@ router.get("/:id", (req, res) => {
 
   const pet = petService.findOne(req.params.id)
 
-  if (!pet) {
-    res.status(404).send('Pet not found')
-  }
-
-  res.status(201).send({
+  res.status(200).send({
     data: pet
   });
 });
