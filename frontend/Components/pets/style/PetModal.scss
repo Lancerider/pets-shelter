@@ -21,6 +21,7 @@
     min-width: 300px;
     min-height: 200px;
     max-height: 80vh;
+    max-width: 80vw;
     padding: 20px;
     border: 1px solid #888;
     border: none;
@@ -37,7 +38,7 @@
     }
 
     form {
-      margin: 0;
+      margin-bottom: 10px;
 
       .form__input {
         display: flex;

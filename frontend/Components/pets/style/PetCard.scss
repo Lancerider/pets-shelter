@@ -30,6 +30,15 @@
     .info {
       color: #229494
     }
+
+    .pet__data {
+      .label {
+        display: inline;
+        font-weight: 600;
+        margin-top: 6px;
+        margin-right: 8px;
+      }
+    }
   }
 }
 

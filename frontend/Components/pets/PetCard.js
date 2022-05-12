@@ -13,13 +13,40 @@ const Pet = (props) => {
         <div className="pet__name">
           { pet.name }
         </div>
-        <div className="pet__status">
-          Status: <span className='info'>{ pet.status.title }</span>
+        <div className="pet__data">
+          <div className='label'>Status: </div>
+          <span className='info'>{ pet.status.title }</span>
         </div>
-        <div className="pet__shelter">
-          { `Shelter: ${pet.shelter.name}` }
+        <div className="pet__data">
+          <div className='label'>Shelter: </div>{ pet.shelter.name }
         </div>
-        { pet.someOther && <div className="pet__some">{ `Notes: ${pet.someOther}` }</div> }
+        { props.showMoreDetails && (
+          <React.Fragment>
+            <div className="pet__data">
+              <div className='label'>Shelter Address: </div>
+              { pet.shelter.address }
+            </div>
+            <div className="pet__data">
+              <div className='label'>Owner: </div>
+              { pet.owner.name }
+            </div>
+            {
+              pet.owner.address && (
+                <div className="pet__data">
+                  <div className='label'>Owner Address: </div>
+                  { pet.owner.address }
+                </div>
+              )
+            }
+          </React.Fragment>
+        )}
+        { pet.someOther && (
+            <div className="pet__data">
+              <div className='label'>Owner Address: </div>
+              { pet.someOther }
+            </div>
+          )
+        }
       </div>
     </div>
   )

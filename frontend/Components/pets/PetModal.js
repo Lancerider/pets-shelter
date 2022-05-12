@@ -221,7 +221,7 @@ const PetModal = (props) => {
           </div>
         )
         : (
-          <PetCard pet={ pet } onClick={() => {}}></PetCard>
+          <PetCard pet={ pet } onClick={() => {}} showMoreDetails></PetCard>
         )
       }
 
