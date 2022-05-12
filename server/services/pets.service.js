@@ -67,7 +67,7 @@ class PetsService {
     })
   }
 
-  find(query) {
+  async find(query) {
     const { types } = query
 
     let filteredPets = this.pets
@@ -79,14 +79,63 @@ class PetsService {
     return filteredPets
   }
 
-  findOne(id) {
-    const pet = this.pets[id]
+  async findOne(id) {
+    const pet = this.pets.find(pet => pet.id === id)
 
     if (!pet) {
       throw boom.notFound('Pet not found')
     }
 
     return pet
+  }
+
+  async update(id, changes) {
+    const index = this.pets.findIndex(pet => pet.id === id);
+
+    if (index === -1) {
+      throw boom.notFound('Pet not found');
+    }
+
+    const pet = this.pets[index]
+
+    const changed = {}
+
+    if(changes.name) {
+      changed.name = changes.name
+    }
+
+    if(changes.status) {
+      changed.status = this.findObjectFromId('petStatus', changes.status)
+    }
+
+    if(changes.type) {
+      changed.type = this.findObjectFromId('petTypes', changes.type)
+    }
+
+    if(changes.owner) {
+      changed.owner = this.findObjectFromId('owners', changes.owner)
+    }
+
+    if(changes.shelter) {
+      changed.shelter = this.findObjectFromId('shelters', changes.shelter)
+    }
+
+    this.pets[index] = {
+      ...pet,
+      ...changed
+    };
+
+    return this.pets[index]
+  }
+
+  findObjectFromId(key, id) {
+    const objectFromId = this[key].find(petData => petData.id === id)
+
+    if (!objectFromId) {
+      throw boom.conflict(`key ${key} doesn't exist`)
+    }
+
+    return objectFromId
   }
 }
 
