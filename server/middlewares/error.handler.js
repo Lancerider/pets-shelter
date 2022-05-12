@@ -1,6 +1,6 @@
 // Set up for error tracking
 const logErrors = (err, req, res, next) => {
-  console.error(err)
+  // console.error(err)
   next(err)
 }
 

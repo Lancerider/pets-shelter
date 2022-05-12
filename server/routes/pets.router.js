@@ -1,53 +1,60 @@
 const express = require("express");
 
-const PetsService = require("../services/pets.service");
 const validationHandler = require('../middlewares/validation.handler')
 const { createPetSchema, updatePetSchema, getPetSchema } = require('../schema/pet.schema')
 
-const petsService = new PetsService();
+class PetsRouter {
+  constructor(petsService) {
+    this.petsService = petsService
+  }
 
-const router = express.Router()
+  makeRouter() {
+    const router = express.Router()
 
-router.get("/", async (req, res, next) => {
-  try {
-    const filteredPets = await petsService.find(req.query)
+    router.get("/", async (req, res, next) => {
+      try {
+        const filteredPets = await this.petsService.find(req.query)
 
-    res.status(200).send({
-      data: filteredPets
+        res.status(200).send({
+          data: filteredPets
+        });
+      } catch (error) {
+        next(error)
+      }
     });
-  } catch (error) {
-    next(error)
+
+    router.get("/:id",
+      validationHandler(getPetSchema, 'params'),
+      async (req, res, next) => {
+        try {
+          const pet = await this.petsService.findOne(req.params.id)
+
+          res.status(200).send({
+            data: pet
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
+
+    router.put("/:id",
+      validationHandler(updatePetSchema, 'body'),
+      async (req, res, next) => {
+        try {
+          const pet = await this.petsService.update(req.params.id, req.body)
+
+          res.status(200).send({
+            data: pet
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
+
+    return router
   }
-});
+}
 
-router.get("/:id",
-  validationHandler(getPetSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      const pet = await petsService.findOne(req.params.id)
-
-      res.status(200).send({
-        data: pet
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-router.put("/:id",
-  validationHandler(updatePetSchema, 'body'),
-  async (req, res, next) => {
-    try {
-      const pet = await petsService.update(req.params.id, req.body)
-
-      res.status(200).send({
-        data: pet
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-module.exports = router
+module.exports = PetsRouter
