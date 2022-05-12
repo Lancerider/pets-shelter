@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom')
+const { format } = require('date-fns')
 
 class PetsService {
   constructor(db) {
@@ -53,8 +54,8 @@ class PetsService {
     if(changes.status) {
       changed.status = this.findObjectFromId('petStatus', changes.status)
 
-      if(changes.status.id !== pet.status.id) {
-        changed.lastStatusUpdate = Date()
+      if(changes.status !== pet.status.id) {
+        changed.lastStatusUpdate = new Date().toISOString()
       }
     }
 
@@ -70,9 +71,7 @@ class PetsService {
       changed.shelter = this.findObjectFromId('shelters', changes.shelter)
     }
 
-    changed.updatedAt = Date();
-
-    changed.shelter = this.findObjectFromId('shelters', changes.shelter)
+    changed.updatedAt = new Date().toISOString();
 
     this.database.pets[index] = {
       ...pet,

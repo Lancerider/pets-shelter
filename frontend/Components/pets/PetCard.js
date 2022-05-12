@@ -1,10 +1,13 @@
 import React from 'react';
+import { parseISO, formatDistanceToNow } from 'date-fns'
 
 import PetIcon from './PetIcon';
 import './style/PetCard.scss'
 
 const Pet = (props) => {
   const { pet, onClick } = props
+
+  const dayPassed = formatDistanceToNow(parseISO(pet.lastStatusUpdate))
 
   return (
     <div className="pet" onClick={ onClick }>
@@ -16,6 +19,10 @@ const Pet = (props) => {
         <div className="pet__data">
           <div className='label'>Status: </div>
           <span className='info'>{ pet.status.title }</span>
+        </div>
+        <div className="pet__data">
+          <div className='label'>Status changed: </div>
+          <span className='info'>{ dayPassed }</span>
         </div>
         <div className="pet__data">
           <div className='label'>Shelter: </div>{ pet.shelter.name }
