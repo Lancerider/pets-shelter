@@ -11,6 +11,12 @@ const PetModal = (props) => {
   const [formError, setFormError] = useState(null)
   const [isEditingPet, setIsEditingPet] = useState(false)
   const [loading, setLoading] = useState(false);
+
+  const [owners, setOwners] = useState(null);
+  const [shelters, setShelters] = useState(null);
+  const [petTypes, setPetTypes] = useState(null);
+  const [petPtatus, setPetStatus] = useState(null);
+
   const [formValues, setFormValues] = useState({
     id: pet.id,
     name: pet.name,
@@ -18,6 +24,34 @@ const PetModal = (props) => {
     owner: pet.owner?.id,
     shelter: pet.shelter?.id,
   })
+
+
+  const getData = async (endpoint, setter) => {
+    setFormError(null)
+    setLoading(true)
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/${endpoint}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*'
+          },
+        }
+      );
+
+      const data = await response.json()
+
+      setter(data.data)
+
+    } catch (error) {
+      setFormError(error)
+    }
+
+    setLoading(false)
+  };
 
   const updatePetData = async () => {
     setFormError(null)
@@ -75,11 +109,20 @@ const PetModal = (props) => {
   }
 
   const handleChange = (event) => {
+    // Todo: handle validations
+
     setFormValues({
       ...formValues,
       [event.target.name]: event.target.value
     })
   }
+
+  useEffect(() => {
+    getData('owners', setOwners);
+    getData('shelters', setShelters);
+    getData('pets/types', setPetTypes);
+    getData('pets/status', setPetStatus);
+  }, []);
 
   return (
     <div className="pet__modal" onClick={ handleCloseModal }>

@@ -27,6 +27,14 @@ class PetsService {
     return pet
   }
 
+  async types() {
+    return this.database.petTypes
+  }
+
+  async status() {
+    return this.database.petStatus
+  }
+
   async update(id, changes) {
     const index = this.database.pets.findIndex(pet => pet.id === id);
 

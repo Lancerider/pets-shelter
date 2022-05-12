@@ -23,6 +23,34 @@ class PetsRouter {
       }
     });
 
+    router.get("/types",
+      async (req, res, next) => {
+        try {
+          const types = await this.petsService.types()
+
+          res.status(200).send({
+            data: types
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
+
+    router.get("/status",
+      async (req, res, next) => {
+        try {
+          const statusList = await this.petsService.status()
+
+          res.status(200).send({
+            data: statusList
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
+
     router.get("/:id",
       validationHandler(getPetSchema, 'params'),
       async (req, res, next) => {
