@@ -11,12 +11,13 @@ const { errorHandler, logErrors, boomErrorHandler } = require('./middlewares/err
 app.use(cors());
 app.use(express.json());
 
+routerApi(app);
+
 // Error handling
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-routerApi(app);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
