@@ -80,7 +80,7 @@
           cursor: pointer;
         }
 
-        &.cancel {
+        &.cancel, &.close {
           background-color: #888;
         }
       }

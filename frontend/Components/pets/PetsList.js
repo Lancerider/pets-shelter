@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 
-import PetsListItem from './PetsListItem'
+import PetCard from './PetCard'
 import PetModal from './PetModal'
 import Loader from '../common/Loader'
 import NoPetsFound from './NoPetsFound'
@@ -69,7 +69,7 @@ const PetsList = () => {
         !errorLoading && !loading && (
           pets && pets.length > 0
             ? <div className="pets__list">
-                { pets.map((pet) => (<PetsListItem pet={ pet } key={ pet.id } onClick={ () => handleModalClick(pet) } />)) }
+                { pets.map((pet) => (<PetCard pet={ pet } key={ pet.id } onClick={ () => handleModalClick(pet) } />)) }
               </div>
             : <NoPetsFound />
           )

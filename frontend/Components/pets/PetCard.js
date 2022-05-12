@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PetIcon from './PetIcon';
-import './style/PetsListItem.scss'
+import './style/PetCard.scss'
 
 const Pet = (props) => {
   const { pet, onClick } = props

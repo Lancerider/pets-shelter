@@ -32,13 +32,21 @@ class Database {
         },
       ]
 
-      this.owners = [...Array(20)].map(() => {
+      const owners = [...Array(20)].map(() => {
         return {
-            id: faker.datatype.uuid(),
-            name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-            address: faker.address.streetAddress(true)
-          }
+          id: faker.datatype.uuid(),
+          name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+          address: faker.address.streetAddress(true)
+        }
       })
+
+      const noOwner = {
+        id: '65ac1a69-d25e-4fa1-8b46-000000000000',
+        name: 'None',
+        address: ''
+      }
+
+      this.owners = [noOwner, ...owners]
 
       this.pets = [...Array(10)].map(() => {
         const status = faker.helpers.arrayElement(this.petStatus)
@@ -49,7 +57,7 @@ class Database {
           status,
           type: faker.helpers.arrayElement(this.petTypes),
           shelter: faker.helpers.arrayElement(this.shelters),
-          owner: status.type === 'adopted' ? faker.helpers.arrayElement(this.owners) : null,
+          owner: status.id === 'adopted' ? faker.helpers.arrayElement(owners) : noOwner,
         }
       })
   }
