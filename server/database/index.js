@@ -51,6 +51,9 @@ class Database {
       this.pets = [...Array(10)].map(() => {
         const status = faker.helpers.arrayElement(this.petStatus)
 
+        const dateCreated = faker.date.recent(30)
+        const dateUpdated = faker.date.between(dateCreated)
+
         return {
           id: faker.datatype.uuid(),
           name: faker.name.firstName(),
@@ -58,6 +61,9 @@ class Database {
           type: faker.helpers.arrayElement(this.petTypes),
           shelter: faker.helpers.arrayElement(this.shelters),
           owner: status.id === 'adopted' ? faker.helpers.arrayElement(owners) : noOwner,
+          createdAt: dateCreated,
+          lastStatusUpdate: dateUpdated,
+          updatedAt: dateUpdated,
         }
       })
   }

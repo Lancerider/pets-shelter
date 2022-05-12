@@ -52,6 +52,10 @@ class PetsService {
 
     if(changes.status) {
       changed.status = this.findObjectFromId('petStatus', changes.status)
+
+      if(changes.status.id !== pet.status.id) {
+        changed.lastStatusUpdate = Date()
+      }
     }
 
     if(changes.type) {
@@ -65,6 +69,10 @@ class PetsService {
     if(changes.shelter) {
       changed.shelter = this.findObjectFromId('shelters', changes.shelter)
     }
+
+    changed.updatedAt = Date();
+
+    changed.shelter = this.findObjectFromId('shelters', changes.shelter)
 
     this.database.pets[index] = {
       ...pet,
