@@ -39,6 +39,17 @@
     form {
       margin: 0;
 
+      .form__input {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 5px;
+      }
+
+      .error {
+        color: red;
+      }
+
       .input__send {
         display: none;
       }

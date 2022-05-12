@@ -50,9 +50,12 @@ const PetsList = () => {
     setModalData(pet)
   }
 
-  const handleClose = (event) => {
-    event.preventDefault();
+  const handleClose = (value) => {
     setModalData(null)
+
+    if (value) {
+      getData()
+    }
   }
 
 
