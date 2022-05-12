@@ -54,3 +54,9 @@ npm start
 > Add here any additional notes we should know about the application
 
 <!-- TODO: add additional Notes -->
+
+Do not forget to install de node dependencies
+
+```shell
+npm install
+```
