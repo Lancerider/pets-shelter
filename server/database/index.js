@@ -4,13 +4,11 @@ class Database {
   constructor() {
       this.petTypes = [
         {
-          id: 1,
-          key: 'cat',
+          id: 'cat',
           title: 'Cat'
         },
         {
-          id: 2,
-          key: 'dog',
+          id: 'dog',
           title: 'Dog'
         }
       ]
@@ -25,13 +23,11 @@ class Database {
 
       this.petStatus = [
         {
-          id: 1,
-          key: 'adopted',
+          id: 'adopted',
           title: 'Adopted'
         },
         {
-          id: 2,
-          key: 'in-shelter',
+          id: 'in-shelter',
           title: 'In shelter'
         },
       ]

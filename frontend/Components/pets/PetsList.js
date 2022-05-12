@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 
 import PetsListItem from './PetsListItem'
+import PetModal from './PetModal'
 import Loader from '../common/Loader'
 import NoPetsFound from './NoPetsFound'
 import GeneralError from '../common/errors/GeneralError'
@@ -13,6 +14,7 @@ const PetsList = () => {
   const [pets, setPets] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [modalData, setModalData] = useState(false);
 
   const getData = async () => {
     setErrorLoading(false)
@@ -44,9 +46,18 @@ const PetsList = () => {
     getData();
   }, []);
 
+  const handleModalClick = (pet) => {
+    setModalData(pet)
+  }
+
+  const handleClose = (event) => {
+    event.preventDefault();
+    setModalData(null)
+  }
+
 
   return (
-    <div>
+    <div className='pets__container'>
       { errorLoading && <GeneralError />}
 
       { loading && <Loader />}
@@ -54,10 +65,16 @@ const PetsList = () => {
       {
         !errorLoading && !loading && (
           pets && pets.length > 0
-            ? <div className="pets__container">
-                { pets.map((pet) => (<PetsListItem pet={ pet } key={ pet.id }/>)) }
+            ? <div className="pets__list">
+                { pets.map((pet) => (<PetsListItem pet={ pet } key={ pet.id } onClick={ () => handleModalClick(pet) } />)) }
               </div>
             : <NoPetsFound />
+          )
+      }
+
+      {
+        modalData && (
+            <PetModal pet={ modalData } closeModal={ handleClose } />
           )
       }
     </div>

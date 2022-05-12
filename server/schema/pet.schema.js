@@ -2,7 +2,9 @@ const Joi = require('joi')
 
 const id = Joi.string().uuid()
 const name = Joi.string().alphanum().min(3).max(50);
-const status = Joi.number().integer();
+const status = Joi.string().min(3).max(50);
+const shelter = Joi.number().integer();
+const owner = Joi.string().uuid()
 
 const createPetSchema = Joi.object({
   id: id.required(),
@@ -15,8 +17,11 @@ const getPetSchema = Joi.object({
 })
 
 const updatePetSchema = Joi.object({
+  id,
   name,
   status,
+  shelter,
+  owner,
 })
 
 const deletePetSchema = Joi.object({
