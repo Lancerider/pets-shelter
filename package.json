@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run client\" \"npm run server\"",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "start": "npm run heroku:server",
     "client": "webpack serve --mode=development",
+    "heroku-prebuild": "npm install --dev",
     "build": "webpack --mode=production",
     "server": "nodemon server/index.js",
-    "heroku-prebuild": "npm install --dev",
-    "server:heroku": "node server/index.js"
+    "heroku:server": "node server/index.js",
+    "heroku:web": "node frontend/server/index.js",
+    "deploy": "git push heroku master:main & git push heroku-web master:main"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,2 @@
+# api: npm run server:heroku -p 3000
+web: npm run heroku:web -p 9000
