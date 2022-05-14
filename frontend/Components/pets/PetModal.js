@@ -32,7 +32,7 @@ const PetModal = (props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/${endpoint}`,
+        `${process.env.REACT_APP_API_URL}/${endpoint}`,
         {
           method: "GET",
           headers: {
@@ -59,7 +59,7 @@ const PetModal = (props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/pets/${formValues.id}`,
+        `${process.env.REACT_APP_API_URL}/pets/${formValues.id}`,
         {
           method: "PUT",
           headers: {

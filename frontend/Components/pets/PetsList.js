@@ -22,7 +22,7 @@ const PetsList = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/pets",
+        `${process.env.REACT_APP_API_URL}/pets`,
         {
           method: "GET",
           headers: {

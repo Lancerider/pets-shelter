@@ -4,9 +4,21 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("css-minimizer-webpack-plugin");
+require('dotenv').config()
+
+const REACT_APP = /^REACT_APP_/i;
+const reactVariables = Object.keys(process.env)
+    .filter(key => REACT_APP.test(key))
+    .reduce(
+        (env, key) => {
+          env[key] = JSON.stringify(process.env[key]);
+          return env;
+        },
+        {}
+      );
 
 module.exports = function(_env, argv) {
-  const isProduction = argv.mode === "production";
+const isProduction = argv.mode === "production";
   const isDevelopment = !isProduction;
 
   return {
@@ -79,8 +91,9 @@ module.exports = function(_env, argv) {
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(
           isProduction ? "production" : "development"
-        )
-      })
+        ),
+        ... { 'process.env': reactVariables }
+      }),
     ].filter(Boolean),
     optimization: {
       minimize: isProduction,
