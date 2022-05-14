@@ -15,7 +15,7 @@ module.exports = {
   ],
   env: {
     production: {
-      only: ["src"],
+      only: ["frontend"],
       plugins: [
         [
           "transform-react-remove-prop-types",
